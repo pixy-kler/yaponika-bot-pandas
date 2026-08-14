@@ -19,14 +19,14 @@ async def cmd_start(message: types.Message):
     await message.answer(
         "*Добро пожаловать в Японику!*\n\n"
         "Этот бот поможет нам записать вас на курсы японского языка.\n"
-        "Нажмите `/reg`, чтобы заполнить анкету.\n\n"
+        "Нажмите `/reg` , чтобы заполнить анкету.\n\n"
         "*Важно:* Все ваши данные в безопасности и используются только для связи с вами.",
         parse_mode="Markdown"
     )
 
 @dp.message(Command("reg"))
 async def cmd_reg_student(message: types.Message, state: FSMContext):
-    await message.answer("*Шаг 1 из 7:* Как вас зовут?:", parse_mode="Markdown")
+    await message.answer("Шаг 1 из 7: Как вас зовут?", parse_mode="Markdown")
     await state.set_state(RegistrationForm.name)
 
 @dp.message(Command("clear"))
@@ -38,19 +38,19 @@ async def cmd_clear_state(message: types.Message, state: FSMContext):
 @dp.message(RegistrationForm.name)
 async def process_name(message: types.Message, state: FSMContext):
     await state.update_data(name=message.text.strip())
-    await message.answer("*Шаг 2 из 7:* Ваша дата рождения (например, 15.08.1995):")
+    await message.answer("Шаг 2 из 7: Ваша дата рождения:")
     await state.set_state(RegistrationForm.birthday)
 
 @dp.message(RegistrationForm.birthday)
 async def process_birthday(message: types.Message, state: FSMContext):
     await state.update_data(birthday=message.text.strip())
-    await message.answer("*Шаг 3 из 7:* Ваш номер телефона (для связи с вами):")
+    await message.answer("Шаг 3 из 7: Ваш номер телефона (для связи с вами):")
     await state.set_state(RegistrationForm.phone)
 
 @dp.message(RegistrationForm.phone)
 async def process_phone(message: types.Message, state: FSMContext):
     await state.update_data(phone=message.text.strip())
-    await message.answer("*Шаг 4 из 7:* Ваш уровень японского языка (выберите):\n"
+    await message.answer("Шаг 4 из 7: Ваш уровень японского языка (напишите ниже):\n"
                          "▫️ нулевичок\n"
                          "▫️ N5 (начальный)\n"
                          "▫️ N4 (базовый)\n"
@@ -62,7 +62,8 @@ async def process_phone(message: types.Message, state: FSMContext):
 @dp.message(RegistrationForm.level)
 async def process_level(message: types.Message, state: FSMContext):
     await state.update_data(level=message.text.strip())
-    await message.answer("*Шаг 5 из 7:* Какая у вас цель изучения языка?\n"
+    await message.answer("Шаг 5 из 7: Укажите, пожалуйста, цель изучения языка.\n"
+                         "Напишите - или скопируйте один из вариантов и вставьте ниже.\n"
                          "▫️ Работа в японской компании\n"
                          "▫️ Стажировка в Японии\n"
                          "▫️ Сдача экзамена JLPT\n"
@@ -73,7 +74,7 @@ async def process_level(message: types.Message, state: FSMContext):
 @dp.message(RegistrationForm.goal)
 async def process_goal(message: types.Message, state: FSMContext):
     await state.update_data(goal=message.text.strip())
-    await message.answer("*Шаг 6 из 7:* В какое время вам удобно заниматься?\n"
+    await message.answer("Шаг 6 из 7: В какое время вам удобно заниматься?\n"
                          "Напишите дни недели и время (например: *пн/ср 18:00 МСК*):")
     await state.set_state(RegistrationForm.preferred_time)
 
