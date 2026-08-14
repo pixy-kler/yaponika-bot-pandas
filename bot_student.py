@@ -12,7 +12,7 @@ from aiogram import types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-bot, dp = get_bot_and_dp()
+bot, dp = get_bot_and_dp(token_name="STUDENT_TOKEN")
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):

@@ -46,8 +46,12 @@ class RegistrationForm(StatesGroup):
     preferred_time = State()
     notes = State()
 
-def get_bot_and_dp():
-    bot = Bot(token=TELEGRAM_TOKEN)
+def get_bot_and_dp(token_name: str = "TELEGRAM_TOKEN"):
+
+    token = os.getenv(token_name)
+    if not token:
+        raise ValueError(f"Токен {token_name} не найден в .env!")
+    bot = Bot(token=token)
     storage = MemoryStorage()
     dp = Dispatcher(storage=storage)
     return bot, dp

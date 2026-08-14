@@ -8,13 +8,13 @@ import logging
 
 from core import (
     get_bot_and_dp, save_student, RegistrationForm, 
-    bot_teacher_analytics  # Функция для /stats и /todo для учителя
+    bot_teacher_analytics
 )
 from aiogram import types
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 
-bot, dp = get_bot_and_dp()
+bot, dp = get_bot_and_dp(token_name="TELEGRAM_TOKEN")
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
@@ -76,15 +76,12 @@ async def process_time(message: types.Message, state: FSMContext):
 
 @dp.message(RegistrationForm.notes)
 async def process_notes(message: types.Message, state: FSMContext):
-    # Собираем все данные из состояния
     data = await state.get_data()
     data['notes'] = message.text.strip()
     data['tg_username'] = message.from_user.username or "Нет информации"
     
-    # Сохраняем в базу через общее ядро
     save_student(data, source_bot="TEACHER_BOT")
     
-    # Формируем красивый ответ
     summary = (
         f"*Анкета ученика сохранена!*\n\n"
         f"Имя: {data['name']}\n"
@@ -108,7 +105,7 @@ async def cmd_todo_list(message: types.Message):
     await bot_teacher_analytics(message, mode="todo")
 
 async def main():
-    logging.info("👨‍🏫 Бот преподавателя запущен и готов к работе!")
+    logging.info("Бот преподавателя запущен и готов к работе!")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
