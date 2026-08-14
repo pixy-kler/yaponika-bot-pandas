@@ -72,11 +72,11 @@ pip install -r requirements.txt
 
 You need two separate terminal windows to run both bots:
 
-Terminal 1 (Teacher Bot):
+**Terminal 1 (Teacher Bot):**
 
 python bot_teacher.py
 
-Terminal 2 (Student Bot):
+**Terminal 2 (Student Bot):**
 
 python bot_student.py
 
@@ -84,7 +84,7 @@ python bot_student.py
 
 ## **Telegram Commands**
 
-###Teacher Bot (bot_teacher.py)
+### Teacher Bot (bot_teacher.py)
 | Command | Description |
 | :--- | :--- |
 | `/start` | Show welcome message |
@@ -138,5 +138,7 @@ Contributions are welcome! Feel free to fork the project, make changes, and subm
 
 Author: pixy-kler
 Project Type: Data Engineering / Automation / Async API / Hexagonal Architecture
+
+---
 
 If you found this project useful, give it a star on GitHub!
